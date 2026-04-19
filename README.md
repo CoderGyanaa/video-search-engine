@@ -32,63 +32,63 @@ Final-year B.Tech Computer Science Engineering student at C.V. Raman Global Univ
 ## 🏗️ Architecture Overview
 
 ```
-┌─────────────────────────────────────────────────────────────────────┐
-│                         INDEXING PIPELINE (offline)                  │
+┌───────────────────────────────────────────────────────────────────────┐
+│                         INDEXING PIPELINE (offline)                   │
 │                                                                       │
 │  Video File / Dir                                                     │
 │       │                                                               │
 │       ▼                                                               │
-│  ┌──────────────┐    scene-change      ┌─────────────────┐           │
-│  │ FrameSampler │ ─── detection ──────▶│ Sampled Frames  │           │
-│  │  (OpenCV)    │    + uniform fallback│  (N frames)     │           │
-│  └──────────────┘                      └────────┬────────┘           │
+│  ┌──────────────┐    scene-change      ┌─────────────────┐            │
+│  │ FrameSampler │─── detection ──────▶│ Sampled Frames   │            |
+│  │  (OpenCV)    │    + uniform fallback│  (N frames)     │            │
+│  └──────────────┘                      └────────┬────────┘            │
 │                                                 │                     │
 │                                                 ▼                     │
-│                                    ┌─────────────────────┐           │
-│                                    │   CLIPEmbedder       │           │
-│                                    │  (ViT-L/14, FP16)   │           │
-│                                    │  Batched inference   │           │
-│                                    │  Temporal smoothing  │           │
-│                                    └──────────┬──────────┘           │
+│                                    ┌─────────────────────┐            │
+│                                    │   CLIPEmbedder      │            │
+│                                    │  (ViT-L/14, FP16)   │            │
+│                                    │  Batched inference  │            │
+│                                    │  Temporal smoothing │            │
+│                                    └──────────┬──────────┘            │
 │                                               │ L2-normalised         │
 │                                               │ embeddings (D=768)    │
 │                                               ▼                       │
-│                                    ┌─────────────────────┐           │
+│                                    ┌──────────────────────┐           │
 │                                    │   FAISS Index        │           │
 │                                    │  IndexFlatIP (<50k)  │           │
 │                                    │  IndexIVFFlat (≥50k) │           │
 │                                    │  + JSON metadata     │           │
-│                                    └─────────────────────┘           │
-└─────────────────────────────────────────────────────────────────────┘
+│                                    └──────────────────────┘           │
+└───────────────────────────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────────────────────────────┐
-│                         QUERY PIPELINE (online, sub-second)          │
+┌───────────────────────────────────────────────────────────────────────┐
+│                         QUERY PIPELINE (online, sub-second)           │
 │                                                                       │
-│  "person near entrance after 18:00"                                  │
+│  "person near entrance after 18:00"                                   │
 │       │                                                               │
 │       ▼                                                               │
-│  ┌──────────────┐    parse time      ┌─────────────────┐            │
-│  │  Query Parse │ ─── filter ───────▶│  CLIP Text Enc  │            │
-│  └──────────────┘  (start, end sec)  └────────┬────────┘            │
+│  ┌──────────────┐    parse time      ┌─────────────────┐              │
+│  │  Query Parse │ ─── filter ───────▶│  CLIP Text Enc  │             │
+│  └──────────────┘  (start, end sec)  └────────┬────────┘              │
 │                                               │ query embedding       │
 │                                               ▼                       │
-│                                    ┌─────────────────────┐           │
+│                                    ┌─────────────────────┐            │
 │                                    │   ANN Search (FAISS) │           │
 │                                    │   + temporal filter  │           │
 │                                    │   + video filter     │           │
-│                                    └──────────┬──────────┘           │
+│                                    └──────────┬──────────┘            │
 │                                               │ top-K results         │
 │                                               ▼                       │
-│                                    ┌─────────────────────┐           │
+│                                    ┌──────────────────────┐           │
 │                                    │  Ranked Results      │           │
 │                                    │  timestamp, score,   │           │
 │                                    │  thumbnail, video    │           │
-│                                    └─────────────────────┘           │
+│                                    └──────────────────────┘           │
 │                                               │                       │
-│                              ┌────────────────┼────────────────┐     │
-│                              ▼                ▼                ▼     │
+│                              ┌────────────────┼────────────────┐      │
+│                              ▼                ▼                ▼      │
 │                         Streamlit UI        CLI           results.json│
-└─────────────────────────────────────────────────────────────────────┘
+└───────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
