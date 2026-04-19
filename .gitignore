@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Project generated files (large, not for git)
+index/
+thumbnails/
+logs/
+outputs/
+
+# Keep sample results
+!outputs/results.json
+
+# Model cache
+.cache/
+huggingface/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Env files
+.env
+.env.local
