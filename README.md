@@ -25,7 +25,7 @@ Final-year B.Tech Computer Science Engineering student at C.V. Raman Global Univ
 
 ## 🎥 Demo Video
 
-[▶ Watch the 1-minute walkthrough](https://your-demo-link-here)
+[[▶ Watch the 1-minute walkthrough]](https://drive.google.com/file/d/1rztMrVn27eAuF5mnjaFxihqGQdwD_dv3/view?usp=sharing)
 
 ---
 
