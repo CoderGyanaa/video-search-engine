@@ -14,7 +14,6 @@ Final-year B.Tech Computer Science Engineering student at C.V. Raman Global Univ
 - 📧 gyanaranjansahoo0033@gmail.com
 - 🔗 [LinkedIn](https://linkedin.com/in/gyanaranjansahoo0033)
 - 🐙 [GitHub](https://github.com/CoderGyanaa)
-- 📱 +91 7787007723
 
 **Highlights:**
 - 🏆 Second Runner Up — Infosys Global Hackathon 2025, Hyderabad
